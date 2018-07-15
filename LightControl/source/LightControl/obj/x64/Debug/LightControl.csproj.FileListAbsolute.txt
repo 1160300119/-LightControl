@@ -1,0 +1,17 @@
+E:\shares\LightControl\source\LightControl\bin\x64\Debug\Microsoft.CognitiveServices.Speech.core.dll
+E:\shares\LightControl\source\LightControl\bin\x64\Debug\Microsoft.CognitiveServices.Speech.csharp.bindings.dll
+E:\shares\LightControl\source\LightControl\bin\x64\Debug\LightControl.exe.config
+E:\shares\LightControl\source\LightControl\bin\x64\Debug\LightControl.exe
+E:\shares\LightControl\source\LightControl\bin\x64\Debug\LightControl.pdb
+E:\shares\LightControl\source\LightControl\bin\x64\Debug\Microsoft.CognitiveServices.Speech.csharp.dll
+E:\shares\LightControl\source\LightControl\bin\x64\Debug\Newtonsoft.Json.dll
+E:\shares\LightControl\source\LightControl\bin\x64\Debug\Microsoft.CognitiveServices.Speech.csharp.xml
+E:\shares\LightControl\source\LightControl\bin\x64\Debug\Newtonsoft.Json.xml
+E:\shares\LightControl\source\LightControl\obj\x64\Debug\LightControl.Form1.resources
+E:\shares\LightControl\source\LightControl\obj\x64\Debug\LightControl.Properties.Resources.resources
+E:\shares\LightControl\source\LightControl\obj\x64\Debug\LightControl.csproj.GenerateResource.cache
+E:\shares\LightControl\source\LightControl\obj\x64\Debug\LightControl.csproj.CoreCompileInputs.cache
+E:\shares\LightControl\source\LightControl\obj\x64\Debug\LightControl.csproj.CopyComplete
+E:\shares\LightControl\source\LightControl\obj\x64\Debug\LightControl.exe
+E:\shares\LightControl\source\LightControl\obj\x64\Debug\LightControl.pdb
+E:\shares\LightControl\source\LightControl\obj\x64\Debug\LightControl.csprojAssemblyReference.cache
