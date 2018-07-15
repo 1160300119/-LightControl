@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.CognitiveServices.Speech;
 using Newtonsoft.Json;
+using System.Speech;
+using System.Speech.Synthesis;
 
 namespace LightControl
 {
@@ -26,9 +28,14 @@ namespace LightControl
         // 语音识别器
         SpeechRecognizer recognizer;
         bool isRecording = false;
+        SpeechSynthesizer synth = new SpeechSynthesizer();
+     
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            synth.Volume = 100; 
+            synth.Speak("欢迎使用智能家居服务");
+
             try
             {
                 // 第一步
@@ -130,35 +137,47 @@ namespace LightControl
             {
                 if (intent.Equals("BedOn", StringComparison.OrdinalIgnoreCase))
                 {
+                    synth.Speak("收到指令，正在打开卧室的灯");
                     BedOpenLight(); 
                 }
                 else if (intent.Equals("BedOff", StringComparison.OrdinalIgnoreCase))
                 {
+                    synth.Speak("收到指令，正在关闭卧室的灯");
                     BedCloseLight();
                 }
                 else if (intent.Equals("KitOn", StringComparison.OrdinalIgnoreCase))
                 {
+                    synth.Speak("收到指令，正在打开厨房的灯");
                     KitOpenLight();
                 }
                 else if (intent.Equals("KitOff", StringComparison.OrdinalIgnoreCase))
                 {
+                    synth.Speak("收到指令，正在关闭厨房的灯");
                     KitCloseLight();
                 }
                 else if (intent.Equals("BKOn", StringComparison.OrdinalIgnoreCase))
                 {
+                    synth.Speak("收到指令，正在打开所有的灯");
                     BKOnLight();
                 }
                 else if (intent.Equals("BKOff", StringComparison.OrdinalIgnoreCase))
                 {
+                    synth.Speak("收到指令，正在关闭所有的灯");
                     BKOffLight();
                 }
                 else if (intent.Equals("BKnf", StringComparison.OrdinalIgnoreCase))
                 {
+                    synth.Speak("收到指令，正在打开卧室的灯并关闭厨房的灯");
                     BKnfLight();
                 }
                 else if (intent.Equals("BKfn", StringComparison.OrdinalIgnoreCase))
                 {
+                    synth.Speak("收到指令，正在关闭卧室的灯并打开厨房的灯");
                     BKfnLight();
+                }
+                else
+                {
+                    synth.Speak("很抱歉，我没有理解您的指令");
                 }
             }
            
