@@ -38,9 +38,9 @@ namespace LightControl
         static string APP_ID = "11537377";
         static string API_KEY = "T9LOIUkTYslEF5PzfEE647CH";
         static string SECRET_KEY = "Rph7jw8rGOtCv7DzXGm9oYFYKwA3mx5m ";
-        int speed=5;
-        int volume=7;
-        int style=4;
+        int speed = 5;
+        int volume = 7;
+        int style = 4;
         int mp3id = 1;
         //spd 选填 语速，取值0-15，默认为5中语速
         //pit 选填 音调，取值0-15，默认为5中语调
@@ -223,7 +223,7 @@ namespace LightControl
                 }
                 else if (intent.Equals("ManVoice", StringComparison.OrdinalIgnoreCase))
                 {
-                    
+
                     //synth.Speak("收到指令，正在关闭卧室的灯并打开厨房的灯");
                     Tts("收到指令，正在切换声音");
                     style = 1;
@@ -264,7 +264,7 @@ namespace LightControl
                     buttonClick();
                     Tts("服务暂时停止，期待您下次使用");
                     button1.Text = "服务停止";
-                    
+
                 }
                 //else if (intent.Equals("quieter", StringComparison.OrdinalIgnoreCase))
                 //{
@@ -326,11 +326,12 @@ namespace LightControl
 
             if (result.ErrorCode == 0)  // 或 result.Success
             {
-                File.WriteAllBytes(mp3id+".mp3", result.Data);
+                File.WriteAllBytes(mp3id + ".mp3", result.Data);
             }
-            wplayer.URL = mp3id+".mp3";
+            wplayer.URL = mp3id + ".mp3";
             mp3id += 1;
-            wplayer.controls.play();        }
+            wplayer.controls.play();
+        }
 
 
 
