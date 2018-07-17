@@ -10,8 +10,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.CognitiveServices.Speech;
 using Newtonsoft.Json;
-using System.Speech;
 using System.Speech.Synthesis;
+using Baidu.Aip;
+using WMPLib;
+using System.IO;
 
 namespace LightControl
 {
@@ -20,23 +22,36 @@ namespace LightControl
         public Form1()
         {
             InitializeComponent();
-            button1.Text = "开始";
+            button1.Text = "准备中";
             pictureBox1.Load("BedOff.png");
             pictureBox2.Load("KitOff.png");
+            pictureBox3.Load("AirConditioner.png");
+            textBox5.Text = "关闭";
         }
 
         // 语音识别器
         SpeechRecognizer recognizer;
-
         bool isRecording = false;
-        SpeechSynthesizer synth = new SpeechSynthesizer();
-     
+        WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
+
+        // 设置APPID/AK/SK
+        static string APP_ID = "11537377";
+        static string API_KEY = "T9LOIUkTYslEF5PzfEE647CH";
+        static string SECRET_KEY = "Rph7jw8rGOtCv7DzXGm9oYFYKwA3mx5m ";
+        int speed=5;
+        int volume=7;
+        int style=4;
+        int mp3id = 1;
+        //spd 选填 语速，取值0-15，默认为5中语速
+        //pit 选填 音调，取值0-15，默认为5中语调
+        //vol 选填 音量，取值0-15，默认为5中音量
+        //per 选填 发音人选择, 0为普通女声，1为普通男生，3为情感合成-度逍遥，4为情感合成-度丫丫，默认为普通女声
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            synth.Volume = 100; 
-            synth.Speak("欢迎使用智能家居服务");
-
+            this.BackgroundImage = Image.FromFile("house.jpg");
+            Tts("欢迎您使用智能家居服务");
             try
             {
                 // 第一步
@@ -55,6 +70,7 @@ namespace LightControl
                 recognizer.FinalResultReceived += Recognizer_FinalResultReceived;
                 // 出错时的处理
                 recognizer.RecognitionErrorRaised += Recognizer_RecognitionErrorRaised;
+                buttonClick();
             }
             catch (Exception ex)
             {
@@ -73,7 +89,7 @@ namespace LightControl
                     inputBox.Location = new Point(10, 10);
                     inputBox.KeyDown += inputBox_KeyDown;
                     Controls.Add(inputBox);
-
+                    buttonClick();
                     button1.Visible = false;
                 }
             }
@@ -88,13 +104,35 @@ namespace LightControl
             {
                 // 启动识别器
                 await recognizer.StartContinuousRecognitionAsync();
-                button1.Text = "停止";
+                button1.Text = "服务进行中";
             }
             else
             {
                 // 停止识别器
                 await recognizer.StopContinuousRecognitionAsync();
-                button1.Text = "开始";
+                button1.Text = "服务暂停";
+            }
+
+            button1.Enabled = true;
+        }
+
+        private async void buttonClick()
+        {
+            button1.Enabled = false;
+
+            isRecording = !isRecording;
+            if (isRecording)
+            {
+                // 启动识别器
+                await recognizer.StartContinuousRecognitionAsync();
+                button1.Text = "服务进行中";
+            }
+            else
+            {
+                // 停止识别器
+                await recognizer.StopContinuousRecognitionAsync();
+                button1.Text = "服务暂停";
+
             }
 
             button1.Enabled = true;
@@ -133,60 +171,119 @@ namespace LightControl
 
             // 第三步
             // 按照意图控制灯
-           
+
             if (!string.IsNullOrEmpty(intent))
             {
                 if (intent.Equals("BedOn", StringComparison.OrdinalIgnoreCase))
                 {
-                    synth.Speak("收到指令，正在打开卧室的灯");
-                    BedOpenLight(); 
+                    //synth.Speak("收到指令，正在打开卧室的灯");
+                    Tts("收到指令，正在打开卧室的灯");
+                    BedOpenLight();
                 }
                 else if (intent.Equals("BedOff", StringComparison.OrdinalIgnoreCase))
                 {
-                    synth.Speak("收到指令，正在关闭卧室的灯");
+                    //synth.Speak("收到指令，正在关闭卧室的灯");
+                    Tts("收到指令，正在关闭卧室的灯");
                     BedCloseLight();
                 }
                 else if (intent.Equals("KitOn", StringComparison.OrdinalIgnoreCase))
                 {
-                    synth.Speak("收到指令，正在打开厨房的灯");
+                    //synth.Speak("收到指令，正在打开厨房的灯");
+                    Tts("收到指令，正在打开厨房的灯");
                     KitOpenLight();
                 }
                 else if (intent.Equals("KitOff", StringComparison.OrdinalIgnoreCase))
                 {
-                    synth.Speak("收到指令，正在关闭厨房的灯");
+                    //synth.Speak("收到指令，正在关闭厨房的灯");
+                    Tts("收到指令，正在关闭厨房的灯");
                     KitCloseLight();
                 }
                 else if (intent.Equals("BKOn", StringComparison.OrdinalIgnoreCase))
                 {
-                    synth.Speak("收到指令，正在打开所有的灯");
+                    //synth.Speak("收到指令，正在打开所有的灯");
+                    Tts("收到指令，正在打开所有的灯");
                     BKOnLight();
                 }
                 else if (intent.Equals("BKOff", StringComparison.OrdinalIgnoreCase))
                 {
-                    synth.Speak("收到指令，正在关闭所有的灯");
+                    //synth.Speak("收到指令，正在关闭所有的灯");
+                    Tts("收到指令，正在关闭所有的灯");
                     BKOffLight();
                 }
-                else if (intent.Equals("BKnf", StringComparison.OrdinalIgnoreCase))
+                else if (intent.Equals("ACoff", StringComparison.OrdinalIgnoreCase))
                 {
-                    synth.Speak("收到指令，正在打开卧室的灯并关闭厨房的灯");
-                    BKnfLight();
+                    Tts("收到指令，关闭空调");
+                    textBox5.Text = "关闭";
+
                 }
-                else if (intent.Equals("BKfn", StringComparison.OrdinalIgnoreCase))
+                else if (intent.Equals("ACopen", StringComparison.OrdinalIgnoreCase))
                 {
-                    synth.Speak("收到指令，正在关闭卧室的灯并打开厨房的灯");
-                    BKfnLight();
+                    Tts("收到指令，打开空调");
+                    textBox5.Text = "27度";
                 }
+                else if (intent.Equals("ManVoice", StringComparison.OrdinalIgnoreCase))
+                {
+                    
+                    //synth.Speak("收到指令，正在关闭卧室的灯并打开厨房的灯");
+                    Tts("收到指令，正在切换声音");
+                    style = 1;
+                    Tts("切换完成");
+                }
+                else if (intent.Equals("WomanVoice", StringComparison.OrdinalIgnoreCase))
+                {
+                    Tts("收到指令，正在切换声音");
+                    style = 4;
+                    Tts("切换完成");
+                }
+                else if (intent.Equals("SpeedQuicker", StringComparison.OrdinalIgnoreCase))
+                {
+                    Tts("收到指令，正在调整速度");
+                    speed += 2;
+                    Tts("调整完成");
+                }
+                else if (intent.Equals("SpeedSlower", StringComparison.OrdinalIgnoreCase))
+                {
+                    Tts("收到指令，正在调整速度");
+                    speed -= 3;
+                    Tts("调整完成");
+                }
+                else if (intent.Equals("louder", StringComparison.OrdinalIgnoreCase))
+                {
+                    Tts("收到指令，正在增加音量");
+                    volume += 3;
+                    Tts("调整完成");
+                }
+                else if (intent.Equals("quieter", StringComparison.OrdinalIgnoreCase))
+                {
+                    Tts("收到指令，正在减小音量");
+                    volume -= 3;
+                    Tts("调整完成");
+                }
+                else if (intent.Equals("Stop", StringComparison.OrdinalIgnoreCase))
+                {
+                    buttonClick();
+                    Tts("服务暂时停止，期待您下次使用");
+                    button1.Text = "服务停止";
+                    
+                }
+                //else if (intent.Equals("quieter", StringComparison.OrdinalIgnoreCase))
+                //{
+                //    //synth.Speak("收到指令，正在关闭卧室的灯并打开厨房的灯");
+                //    Tts("收到指令，正在关闭卧室的灯并打开厨房的灯");
+                //    BKfnLight();
+                //}
                 else
                 {
-                    synth.Speak("很抱歉，我没有理解您的指令");
+                    Tts("很抱歉，我没有理解您的指令");
+                    //synth.Speak("很抱歉，我没有理解您的指令");
                 }
             }
-           
+
         }
 
         // 第二步
         // 调用语言理解服务取得用户意图
-        
+
         private async Task<string> GetLuisResult(string text)
         {
             using (HttpClient httpClient = new HttpClient())
@@ -212,8 +309,31 @@ namespace LightControl
                 }
             }
         }
-       
-        
+
+        // 合成
+        public void Tts(string content)
+        {
+            var client = new Baidu.Aip.Speech.Tts(API_KEY, SECRET_KEY);
+            client.Timeout = 60000;  // 修改超时时间
+            // 可选参数
+            var option = new Dictionary<string, object>()
+            {
+                {"spd",speed}, // 语速
+                {"vol", volume}, // 音量
+                {"per", style}  // 发音人，4：情感度丫丫童声
+            };
+            var result = client.Synthesis(content, option);
+
+            if (result.ErrorCode == 0)  // 或 result.Success
+            {
+                File.WriteAllBytes(mp3id+".mp3", result.Data);
+            }
+            wplayer.URL = mp3id+".mp3";
+            mp3id += 1;
+            wplayer.controls.play();        }
+
+
+
         #region 界面操作
 
         private void Log(string message)
@@ -317,6 +437,11 @@ namespace LightControl
                 ProcessSttResult(textBox.Text);
                 textBox.Text = string.Empty;
             }
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
