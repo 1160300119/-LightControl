@@ -36,7 +36,6 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -47,7 +46,7 @@
             this.button1.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button1.Location = new System.Drawing.Point(12, 12);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(214, 79);
+            this.button1.Size = new System.Drawing.Size(195, 68);
             this.button1.TabIndex = 0;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -63,17 +62,17 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(563, 12);
+            this.textBox1.Location = new System.Drawing.Point(512, 202);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(225, 259);
+            this.textBox1.Size = new System.Drawing.Size(276, 236);
             this.textBox1.TabIndex = 2;
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(213, 163);
+            this.pictureBox2.Location = new System.Drawing.Point(249, 163);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(209, 275);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -83,9 +82,9 @@
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("华文中宋", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox2.Location = new System.Drawing.Point(59, 136);
+            this.textBox2.Location = new System.Drawing.Point(12, 409);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 29);
+            this.textBox2.Size = new System.Drawing.Size(63, 29);
             this.textBox2.TabIndex = 4;
             this.textBox2.Text = "卧室";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -93,43 +92,36 @@
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("华文中宋", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox3.Location = new System.Drawing.Point(262, 136);
+            this.textBox3.Location = new System.Drawing.Point(249, 409);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 29);
+            this.textBox3.Size = new System.Drawing.Size(64, 29);
             this.textBox3.TabIndex = 5;
             this.textBox3.Text = "厨房";
             this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Location = new System.Drawing.Point(291, 12);
+            this.pictureBox3.Location = new System.Drawing.Point(488, 12);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(192, 65);
+            this.pictureBox3.Size = new System.Drawing.Size(300, 138);
             this.pictureBox3.TabIndex = 6;
             this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("华文中宋", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox4.Location = new System.Drawing.Point(291, 70);
+            this.textBox4.Location = new System.Drawing.Point(488, 121);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(41, 29);
             this.textBox4.TabIndex = 7;
             this.textBox4.Text = "空调";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(423, 70);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(60, 21);
-            this.textBox5.TabIndex = 8;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.textBox5);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.textBox3);
@@ -159,7 +151,6 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
     }
 }
 

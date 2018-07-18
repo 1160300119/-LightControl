@@ -25,13 +25,15 @@ namespace LightControl
             button1.Text = "准备中";
             pictureBox1.Load("BedOff.png");
             pictureBox2.Load("KitOff.png");
-            pictureBox3.Load("AirConditioner.png");
-            textBox5.Text = "关闭";
+            pictureBox3.Load("off.png");
+           
         }
 
         // 语音识别器
         SpeechRecognizer recognizer;
         bool isRecording = false;
+        bool Light = false;
+
         WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
 
         // 设置APPID/AK/SK
@@ -176,55 +178,159 @@ namespace LightControl
             {
                 if (intent.Equals("BedOn", StringComparison.OrdinalIgnoreCase))
                 {
-                    //synth.Speak("收到指令，正在打开卧室的灯");
-                    Tts("收到指令，正在打开卧室的灯");
-                    BedOpenLight();
+                    if(Light)
+                    {
+                        Tts("卧室的灯已经打开了");
+                    }
+                    else
+                    {
+                        //synth.Speak("收到指令，正在打开卧室的灯");
+                        Tts("收到指令，正在打开卧室的灯");
+                        BedOpenLight();
+                        Light = true;
+                    }
+                    
+
                 }
                 else if (intent.Equals("BedOff", StringComparison.OrdinalIgnoreCase))
                 {
-                    //synth.Speak("收到指令，正在关闭卧室的灯");
-                    Tts("收到指令，正在关闭卧室的灯");
-                    BedCloseLight();
+                    if (Light)
+                    {
+                        //synth.Speak("收到指令，正在关闭卧室的灯");
+                        Tts("收到指令，正在关闭卧室的灯");
+                        BedCloseLight();
+                        Light = false;
+                    }
+                    else
+                    {
+                        Tts("卧室的灯已经关了");
+                    }
+                    
                 }
                 else if (intent.Equals("KitOn", StringComparison.OrdinalIgnoreCase))
                 {
-                    //synth.Speak("收到指令，正在打开厨房的灯");
-                    Tts("收到指令，正在打开厨房的灯");
-                    KitOpenLight();
+                    if (Light)
+                    {
+                        Tts("厨房的灯已经打开了");
+                    }
+                    else
+                    {
+                        //synth.Speak("收到指令，正在打开厨房的灯");
+                        Tts("收到指令，正在打开厨房的灯");
+                        KitOpenLight();
+                        Light = true;
+                    }
+                    
                 }
                 else if (intent.Equals("KitOff", StringComparison.OrdinalIgnoreCase))
                 {
-                    //synth.Speak("收到指令，正在关闭厨房的灯");
-                    Tts("收到指令，正在关闭厨房的灯");
-                    KitCloseLight();
+                    if (Light)
+                    {
+                        //synth.Speak("收到指令，正在关闭厨房的灯");
+                        Tts("收到指令，正在关闭厨房的灯");
+                        KitCloseLight();
+                        Light = false;
+                    }
+                    else
+                    {
+                        Tts("厨房的灯已经关了");
+                    }
+                    
                 }
                 else if (intent.Equals("BKOn", StringComparison.OrdinalIgnoreCase))
                 {
-                    //synth.Speak("收到指令，正在打开所有的灯");
-                    Tts("收到指令，正在打开所有的灯");
-                    BKOnLight();
+                    if (Light)
+                    {
+                        Tts("所有的灯都已经打开了");
+                    }
+                    else
+                    {
+                        //synth.Speak("收到指令，正在打开所有的灯");
+                        Tts("收到指令，正在打开所有的灯");
+                        BKOnLight();
+                        Light = true;
+                    }
+                    
                 }
                 else if (intent.Equals("BKOff", StringComparison.OrdinalIgnoreCase))
                 {
-                    //synth.Speak("收到指令，正在关闭所有的灯");
-                    Tts("收到指令，正在关闭所有的灯");
-                    BKOffLight();
+                    if (Light)
+                    {
+                        //synth.Speak("收到指令，正在关闭所有的灯");
+                        Tts("收到指令，正在关闭所有的灯");
+                        BKOffLight();
+                        Light = false;
+                    }
+                    else
+                    {
+                        Tts("所有的灯都已经关闭了");
+                    }
+                    
                 }
-                else if (intent.Equals("ACoff", StringComparison.OrdinalIgnoreCase))
+                else if (intent.Equals("BKnf", StringComparison.OrdinalIgnoreCase))
                 {
-                    Tts("收到指令，关闭空调");
-                    textBox5.Text = "关闭";
-
+                    if (Light)
+                    {
+                        Tts("卧室的灯已经打开了，厨房的灯也已经关闭了");
+                    }
+                    else
+                    { 
+                        Tts("收到指令，打开卧室的灯，关闭厨房的灯");
+                        BKnfLight();
+                        Light = true;
+                    }
+                    
                 }
+                else if (intent.Equals("BKfn", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (Light)
+                    {
+                        Tts("收到指令，关闭卧室的灯，打开厨房的灯");
+                        BKfnLight();
+                        Light = false;
+                    }
+                    else
+                    {
+                        Tts("卧室的灯已经关了,厨房的灯也已经打开了");
+                    }
+                    
+                }
+
                 else if (intent.Equals("ACopen", StringComparison.OrdinalIgnoreCase))
                 {
-                    Tts("收到指令，打开空调");
-                    textBox5.Text = "27度";
+                    if (Light)
+                    {
+                        Tts("空调已经打开了");
+                    }
+                    else
+                    {
+                        Tts("收到指令，打开空调");
+                        ACOn();
+                        Light = true;
+                    }
                 }
+
+                else if (intent.Equals("ACoff", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (Light)
+                    {
+                        Tts("收到指令，关闭空调");
+                        ACOff();
+                        Light = false;
+                    }
+                    else
+                    {
+                        Tts("空调已经关闭了");
+                    }
+
+                    
+
+                }
+                
+                
                 else if (intent.Equals("ManVoice", StringComparison.OrdinalIgnoreCase))
                 {
 
-                    //synth.Speak("收到指令，正在关闭卧室的灯并打开厨房的灯");
                     Tts("收到指令，正在切换声音");
                     style = 1;
                     Tts("切换完成");
@@ -412,6 +518,20 @@ namespace LightControl
                 pictureBox2.Load("KitOn.png");
             });
         }
+        private void ACOff()
+        {
+            MakesureRunInUI(() =>
+            {
+                pictureBox3.Load("off.png");
+            });
+        }
+        private void ACOn()
+        {
+            MakesureRunInUI(() =>
+            {
+                pictureBox3.Load("on.png");
+            });
+        }
 
         private void MakesureRunInUI(Action action)
         {
@@ -441,6 +561,16 @@ namespace LightControl
         }
 
         private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
         {
 
         }
